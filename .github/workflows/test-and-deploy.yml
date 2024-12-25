@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          github_token: "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"
 
       - name: Setup Node
         uses: actions/setup-node@v3
