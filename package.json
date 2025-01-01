@@ -36,6 +36,7 @@
     "@yvan-element/theme": "workspace:*",
     "@yvan-element/utils": "workspace:*",
     "lodash-es": "^4.17.21",
+    "prettier": "^3.4.2",
     "vue": "^3.4.19",
     "yvan-element": "workspace:*"
   }
