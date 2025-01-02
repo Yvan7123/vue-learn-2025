@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue'
-  import { ButtonProps, ButtonSize, ButtonType } from './types'
+  import { type ButtonProps } from './types'
   defineOptions({
     name: 'ErButton',
   })
@@ -9,6 +9,7 @@
     tag: 'button',
     nativeType: 'button',
   })
+  console.log(props.type)
 
   const solts = defineSlots()
 
@@ -35,3 +36,7 @@
     <slot></slot>
   </component>
 </template>
+
+<style scoped>
+  @import './style.css';
+</style>
