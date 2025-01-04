@@ -1,56 +1,90 @@
-import { fn } from '@storybook/test';
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3'
+import { fn, within, userEvent, expect } from '@storybook/test'
+import { ErButton } from 'yvan-element'
+// import 'yvan-element/dist/theme/Button.css'
 
-import Button from './Button.vue';
+type Story = StoryObj<typeof ErButton> & { argTypes?: ArgTypes }
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
-const meta = {
+const meta: Meta<typeof ErButton> = {
   title: 'Example/Button',
-  component: Button,
-  // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
+  component: ErButton,
+  // subcomponents: { ButtonGroup: ErButtonGroup },
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
-    backgroundColor: { control: 'color' },
+    type: {
+      control: { type: 'select' },
+      options: ['primary', 'success', 'warning', 'danger', 'info', ''],
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['large', 'default', 'small', ''],
+    },
+    disabled: {
+      control: 'boolean',
+    },
+    loading: {
+      control: 'boolean',
+    },
+    useThrottle: {
+      control: 'boolean',
+    },
+    throttleDuration: {
+      control: 'number',
+    },
+    autofocus: {
+      control: 'boolean',
+    },
+    tag: {
+      control: { type: 'select' },
+      options: ['button', 'a', 'div'],
+    },
+    nativeType: {
+      control: { type: 'select' },
+      options: ['button', 'submit', 'reset', ''],
+    },
+    icon: {
+      control: { type: 'text' },
+    },
+    loadingIcon: {
+      control: { type: 'text' },
+    },
   },
-  args: {
-    primary: false,
-    // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-    onClick: fn(),
-  },
-} satisfies Meta<typeof Button>;
+  args: { onClick: fn() },
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/api/csf
- * to learn how to use render functions.
- */
-export const Primary: Story = {
-  args: {
-    primary: true,
-    label: 'Button',
-  },
-};
+const container = (val: string) => `
+<div style="margin:5px">
+  ${val}
+</div>
+`
 
-export const Secondary: Story = {
-  args: {
-    primary: false,
-    label: 'Button',
+export const Default: Story & { args: { content: string } } = {
+  argTypes: {
+    content: {
+      control: { type: 'text' },
+    },
   },
-};
+  args: {
+    type: 'primary',
+    content: 'Button',
+  },
+  render: (args) => ({
+    components: { ErButton },
+    setup() {
+      return { args }
+    },
+    template: container(
+      `<er-button v-bind="args">{{args.content}}</er-button>`
+    ),
+  }),
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement)
+    await step('click button', async () => {
+      await userEvent.tripleClick(canvas.getByRole('button'))
+    })
 
-export const Large: Story = {
-  args: {
-    label: 'Button',
-    size: 'large',
+    expect(args.onClick).toHaveBeenCalled()
   },
-};
+}
 
-export const Small: Story = {
-  args: {
-    label: 'Button',
-    size: 'small',
-  },
-};
+export default meta

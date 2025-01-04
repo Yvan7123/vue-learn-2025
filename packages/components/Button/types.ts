@@ -1,11 +1,11 @@
-import type { Component } from "vue"
+import type { Component, Ref } from 'vue'
 
 export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info'
 export type NativeType = 'button' | 'submit' | 'reset'
 export type ButtonSize = 'large' | 'normal' | 'small'
 
 export interface ButtonProps {
-  tag?: string| Component
+  tag?: string | Component
   type?: ButtonType
   size?: ButtonSize
   nativeType?: NativeType
@@ -17,4 +17,16 @@ export interface ButtonProps {
   text?: boolean
   loading?: boolean
   icon?: string
+  loadingIcon?: string
+  autofocus?: boolean
+  useThrottle?: boolean
+  throttleDuration?: number
+}
+
+export interface ButtonEmits {
+  (e: 'click', val: MouseEvent): void
+}
+
+export interface ButtonInstance {
+  ref: Ref<HTMLButtonElement | void>
 }

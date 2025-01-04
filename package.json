@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter @yvan-element/play dev",
+    "story": "pnpm --filter @yvan-element/play storybook",
     "docs:dev": "pnpm --filter @yvan-element/docs dev",
     "docs:build": "pnpm --filter @yvan-element/docs build",
     "test": "vitest --coverage"
@@ -30,6 +31,7 @@
     "vue-tsc": "^1.8.27"
   },
   "dependencies": {
+    "@storybook/test": "8.4.7",
     "@vitest/coverage-v8": "^2.1.8",
     "@vue/test-utils": "^2.4.6",
     "@yvan-element/hooks": "workspace:*",
