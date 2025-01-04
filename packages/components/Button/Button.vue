@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import type { ButtonProps, ButtonEmits, ButtonInstance } from './types'
+  import ErIcon from '../Icon/Icon.vue'
   import { throttle } from 'lodash-es'
   defineOptions({
     name: 'ErButton',
@@ -17,6 +18,10 @@
   const emits = defineEmits<ButtonEmits>()
 
   const _ref = ref<HTMLButtonElement>()
+
+  const iconStyle = computed(() => ({
+    marginRight: solts.default ? '6px' : '4px',
+  }))
 
   const handleButtonClick = (e: MouseEvent) => {
     emits('click', e)
@@ -53,6 +58,23 @@
         props.useThrottle ? handlBtneCLickThrottle(e) : handleButtonClick(e)
     "
   >
+    <template v-if="loading">
+      <slot name="loading">
+        <er-icon
+          class="loading-icon"
+          :icon="loadingIcon ?? 'spinner'"
+          :style="iconStyle"
+          size="1x"
+          spin
+        />
+      </slot>
+    </template>
+    <er-icon
+      :icon="icon"
+      size="1x"
+      :style="iconStyle"
+      v-if="icon && !loading"
+    />
     <slot></slot>
   </component>
 </template>

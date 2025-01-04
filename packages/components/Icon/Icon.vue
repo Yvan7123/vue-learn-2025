@@ -9,6 +9,8 @@
   })
 
   const props = defineProps<IconProps>()
+
+  computed(() => console.log(props.icon))
   const filterProps = computed(() => omit(props, ['type', 'color']))
   const customStyles = computed(() => ({ color: props.color ?? void 0 }))
 </script>
@@ -16,7 +18,7 @@
 <template>
   <i
     class="er-icon"
-    :class="[`er-icon-${props.type}`]"
+    :class="{ [`er-icon-${props.type}`]: type }"
     :style="customStyles"
     v-bind="$attrs"
   >
@@ -24,6 +26,6 @@
   </i>
 </template>
 
-<styple scoped>
-  @import "./style.css"
-</styple>
+<style scoped>
+  @import './style.css';
+</style>
