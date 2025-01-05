@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
   import type { ButtonGroupProps } from './types'
   import { BUTTON_GROUP_CTX_KEY } from './constants'
   import { provide, reactive, toRef } from 'vue'
@@ -19,7 +19,7 @@
 </script>
 
 <template>
-  <div class="button-group">
+  <div class="er-button-group">
     <slot />
   </div>
 </template>
