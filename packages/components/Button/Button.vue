@@ -1,8 +1,9 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue'
+  import { ref, computed, inject } from 'vue'
   import type { ButtonProps, ButtonEmits, ButtonInstance } from './types'
   import ErIcon from '../Icon/Icon.vue'
   import { throttle } from 'lodash-es'
+  import { BUTTON_GROUP_CTX_KEY } from './constants'
   defineOptions({
     name: 'ErButton',
   })
@@ -10,12 +11,27 @@
   const props = withDefaults(defineProps<ButtonProps>(), {
     tag: 'button',
     nativeType: 'button',
+    useThrottle: true,
+    throttleDuration: 500,
   })
-  console.log(props.type)
 
   const solts = defineSlots()
 
   const emits = defineEmits<ButtonEmits>()
+
+  const buttonGroupCtx = inject(BUTTON_GROUP_CTX_KEY, void 0)
+
+  const size = computed(() => {
+    return buttonGroupCtx?.size ?? props?.size ?? ''
+  })
+
+  const type = computed(() => {
+    return buttonGroupCtx?.type ?? props.type ?? ''
+  })
+
+  const disabled = computed(() => {
+    return props.disabled || buttonGroupCtx?.disabled || false
+  })
 
   const _ref = ref<HTMLButtonElement>()
 
@@ -43,15 +59,15 @@
     :type="tag === 'button' ? props.nativeType : void 0"
     class="er-button"
     :class="{
-      [`er-button--${props.type}`]: props.type,
-      [`er-button--${props.size}`]: props.size,
+      [`er-button--${type}`]: type,
+      [`er-button--${size}`]: size,
       'is-plain': props.plain,
       'is-round': props.round,
       'is-circle': props.circle,
-      'is-disabled': props.disabled,
+      'is-disabled': disabled,
       'is-loading': loading,
     }"
-    :disabled="props.disabled || loading ? true : void 0"
+    :disabled="disabled || loading ? true : void 0"
     :ref="_ref"
     @click="
       (e: MouseEvent) =>
