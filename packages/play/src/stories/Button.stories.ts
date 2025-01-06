@@ -1,6 +1,8 @@
-import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3'
+import { type Meta, type StoryObj, type ArgTypes, setup } from '@storybook/vue3'
 import { fn, within, userEvent, expect } from '@storybook/test'
 import { ErButton, ErButtonGroup } from 'yvan-element'
+import { render } from 'vue'
+import components from 'yvan-element/components'
 // import 'yvan-element/dist/theme/Button.css'
 
 type Story = StoryObj<typeof ErButton> & { argTypes?: ArgTypes }
@@ -87,4 +89,78 @@ export const Default: Story & { args: { content: string } } = {
   },
 }
 
+export const Circle: Story = {
+  args: {
+    icon: 'search',
+  },
+  render: (args) => ({
+    components: { ErButton },
+    setup() {
+      return { args }
+    },
+    template: container(
+      `<er-button v-bind="args" circle>{{args.content}}</er-button>`
+    ),
+  }),
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement)
+    await step('click button', async () => {
+      await userEvent.tripleClick(canvas.getByRole('button'))
+    })
+  },
+}
+
+Circle.parameters = {}
+
+export const Group: Story = {
+  argTypes: {
+    groupType: {
+      control: { type: 'select' },
+      options: ['primary', 'success', 'warning', 'danger', 'info', ''],
+    },
+    groupSize: {
+      control: { type: 'select' },
+      options: ['large', 'default', 'small', ''],
+    },
+    groupDisabled: {
+      control: 'boolean',
+    },
+    content1: {
+      control: { type: 'text' },
+      defaultValue: 'Button1',
+    },
+    content2: {
+      control: { type: 'text' },
+      defaultValue: 'Button2',
+    },
+  },
+  args: {
+    round: true,
+    content1: 'Button1',
+    content2: 'Button2',
+  },
+  render: (args) => ({
+    components: { ErButton, ErButtonGroup },
+    setup() {
+      return { args }
+    },
+    template: container(
+      `<er-button-group :type="args.groupType" :size="args.groupSize" :disabled="args.groupDisabled">
+        <er-button v-bind="args">{{args.content1}}</er-button>
+        <er-button v-bind="args">{{args.content2}}</er-button>
+        </er-button-group>  
+    `
+    ),
+  }),
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement)
+    await step('click button1', async () => {
+      await userEvent.tripleClick(canvas.getByText('Button1'))
+    })
+    await step('click button1', async () => {
+      await userEvent.tripleClick(canvas.getByText('Button2'))
+    })
+    expect(args.onClick).toHaveBeenCalled()
+  },
+}
 export default meta
