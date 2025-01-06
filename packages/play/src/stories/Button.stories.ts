@@ -1,6 +1,6 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3'
 import { fn, within, userEvent, expect } from '@storybook/test'
-import { ErButton } from 'yvan-element'
+import { ErButton, ErButtonGroup } from 'yvan-element'
 // import 'yvan-element/dist/theme/Button.css'
 
 type Story = StoryObj<typeof ErButton> & { argTypes?: ArgTypes }
@@ -8,7 +8,7 @@ type Story = StoryObj<typeof ErButton> & { argTypes?: ArgTypes }
 const meta: Meta<typeof ErButton> = {
   title: 'Example/Button',
   component: ErButton,
-  // subcomponents: { ButtonGroup: ErButtonGroup },
+  subcomponents: { ButtonGroup: ErButtonGroup },
   tags: ['autodocs'],
   argTypes: {
     type: {
@@ -86,7 +86,5 @@ export const Default: Story & { args: { content: string } } = {
     expect(args.onClick).toHaveBeenCalled()
   },
 }
-
-
 
 export default meta
