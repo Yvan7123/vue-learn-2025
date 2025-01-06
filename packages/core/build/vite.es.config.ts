@@ -3,8 +3,8 @@ import { readFile } from 'fs'
 import { resolve } from 'path'
 import { defer, delay } from 'lodash-es'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { hooksPlugin as hooks } from '@eric-ui/vite-plugins'
-import shell from 'shelljs'
+// import { hooksPlugin as hooks } from '@eric-ui/vite-plugins'
+// import shell from 'shelljs'
 
 import vue from '@vitejs/plugin-vue'
 import compression from 'vite-plugin-compression'
@@ -19,7 +19,7 @@ const isTest = process.env.NODE_ENV === 'test'
 function moveStyles() {
   readFile('./dist/umd/index.css.gz', (err) => {
     if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
-    defer(() => shell.cp('./dist/umd/index.css', './dist/index.css'))
+    // defer(() => shell.cp('./dist/umd/index.css', './dist/index.css'))
   })
 }
 
@@ -44,10 +44,10 @@ export default defineConfig({
         },
       },
     }),
-    hooks({
-      rmFiles: ['./dist/umd', './dist/index.css', './dist/stats.umd.html'],
-      afterBuild: moveStyles,
-    }),
+    // hooks({
+    //   rmFiles: ['./dist/umd', './dist/index.css', './dist/stats.umd.html'],
+    //   afterBuild: moveStyles,
+    // }),
   ],
   build: {
     outDir: 'dist/umd',
