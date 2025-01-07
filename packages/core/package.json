@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-umd": "vite build --config build/vite.umd.config.ts",
+    "build-es": "vite build --config build/vite.es.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +21,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@popperjs/core": "^2.11.8",
-    "async-validator": "^4.2.5"
+    "async-validator": "^4.2.5",
+    "vite-plugin-dts": "^4.4.0"
   },
   "peerDependencies": {
-    "vue": "^3.4.27"
+    "vue": "^3.4.27",
+    "lodash-es": "^4.17.21"
   }
 }

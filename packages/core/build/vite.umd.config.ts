@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { readFile } from 'fs'
 import { resolve } from 'path'
-import { defer, delay } from 'lodash-es'
+// import { defer, delay } from 'lodash-es'
 import { visualizer } from 'rollup-plugin-visualizer'
 // import { hooksPlugin as hooks } from "@eric-ui/vite-plugins";
 // import shell from "shelljs";
@@ -18,7 +18,7 @@ const isTest = process.env.NODE_ENV === 'test'
 
 function moveStyles() {
   readFile('./dist/umd/index.css.gz', (err) => {
-    if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
+    // if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
     // defer(() => shell.cp('./dist/umd/index.css', './dist/index.css'))
   })
 }
@@ -26,9 +26,9 @@ function moveStyles() {
 export default defineConfig({
   plugins: [
     vue(),
-    compression({
-      filter: /.(cjs|css)$/i,
-    }),
+    // compression({
+    //   filter: /.(cjs|css)$/i,
+    // }),
     visualizer({
       filename: 'dist/stats.umd.html',
     }),
