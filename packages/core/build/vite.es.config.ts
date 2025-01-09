@@ -3,8 +3,8 @@ import { readdirSync, readdir } from 'fs'
 import { resolve } from 'path'
 import { defer, delay, filter, map, includes } from 'lodash-es'
 import { visualizer } from 'rollup-plugin-visualizer'
-// import { hooksPlugin as hooks } from '@eric-ui/vite-plugins'
-// import shell from 'shelljs'
+import hooks from '../hooksPlugin'
+import shell from 'shelljs'
 
 import vue from '@vitejs/plugin-vue'
 // import dts from 'vite-plugin-dts'
@@ -28,7 +28,7 @@ function getDirectoriesSync(basePath: string) {
 function moveStyles() {
   readdir('./dist/es/theme', (err) => {
     if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
-    // defer(() => shell.mv('./dist/es/theme', './dist'))
+    defer(() => shell.mv('./dist/es/theme', './dist'))
   })
 }
 
@@ -69,15 +69,15 @@ export default defineConfig({
         keep_fnames: isDev,
       },
     }),
-    // hooks({
-    //   rmFiles: [
-    //     './dist/es',
-    //     './dist/theme',
-    //     './dist/types',
-    //     './dist/stats.es.html',
-    //   ],
-    //   afterBuild: moveStyles,
-    // }),
+    hooks({
+      rmFiles: [
+        './dist/es',
+        './dist/theme',
+        './dist/types',
+        './dist/stats.es.html',
+      ],
+      afterBuild: moveStyles,
+    }),
   ],
   build: {
     outDir: 'dist/es',
