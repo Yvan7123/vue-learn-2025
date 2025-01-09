@@ -2,7 +2,7 @@
   "name": "yvan-element",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "type": "module",
   "scripts": {
     "build-umd": "vite build --config build/vite.umd.config.ts",
     "build-es": "vite build --config build/vite.es.config.ts"
@@ -14,18 +14,16 @@
     "@rollup/plugin-terser": "^0.4.4",
     "rollup-plugin-visualizer": "^5.12.0",
     "terser": "^5.31.0",
-    "vite-plugin-compression2": "^1.3.3"
+    "vite-plugin-compression": "^0.5.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@popperjs/core": "^2.11.8",
-    "async-validator": "^4.2.5",
-    "vite-plugin-dts": "^4.4.0"
+    "async-validator": "^4.2.5"
   },
   "peerDependencies": {
-    "vue": "^3.4.27",
-    "lodash-es": "^4.17.21"
+    "vue": "^3.4.27"
   }
 }
