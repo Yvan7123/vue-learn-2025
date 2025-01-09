@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 // import shell from "shelljs";
 
 import vue from '@vitejs/plugin-vue'
-import compression from 'vite-plugin-compression'
+import { compression } from 'vite-plugin-compression2'
 import terser from '@rollup/plugin-terser'
 
 const TRY_MOVE_STYLES_DELAY = 750 as const
@@ -26,9 +26,9 @@ function moveStyles() {
 export default defineConfig({
   plugins: [
     vue(),
-    // compression({
-    //   filter: /.(cjs|css)$/i,
-    // }),
+    compression({
+      include: /.(cjs|css)$/i,
+    }),
     visualizer({
       filename: 'dist/stats.umd.html',
     }),
