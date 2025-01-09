@@ -7,7 +7,7 @@ import hooks from '../hooksPlugin'
 import shell from 'shelljs'
 
 import vue from '@vitejs/plugin-vue'
-// import dts from 'vite-plugin-dts'
+import dts from 'vite-plugin-dts'
 import terser from '@rollup/plugin-terser'
 
 const TRY_MOVE_STYLES_DELAY = 750 as const
@@ -38,10 +38,10 @@ export default defineConfig({
     visualizer({
       filename: 'dist/stats.es.html',
     }),
-    // dts({
-    //   tsconfigPath: '../../tsconfig.build.json',
-    //   outDir: 'dist/types',
-    // }),
+    dts({
+      tsconfigPath: '../../tsconfig.build.json',
+      outDir: 'dist/types',
+    }),
     terser({
       compress: {
         sequences: isProd,
