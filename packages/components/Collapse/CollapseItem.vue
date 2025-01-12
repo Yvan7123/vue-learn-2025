@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { type CollapseItemProps } from "./types";
-import { inject, computed } from "vue";
-import { COLLAPSE_CTX_KEY } from "./constants";
-import transitionEvents from "./transitionEvents";
-import ErIcon from "../Icon/Icon.vue";
+  import { type CollapseItemProps } from './types'
+  import { inject, computed } from 'vue'
+  import { COLLAPSE_CTX_KEY } from './constants'
+  import transitionEvents from './transitionEvents'
+  import ErIcon from '../Icon/Icon.vue'
 
-defineOptions({
-  name: "ErCollapseItem",
-});
+  defineOptions({
+    name: 'ErCollapseItem',
+  })
 
-const props = defineProps<CollapseItemProps>();
+  const props = defineProps<CollapseItemProps>()
 
-const ctx = inject(COLLAPSE_CTX_KEY);
+  const ctx = inject(COLLAPSE_CTX_KEY)
 
-const isActive = computed(() => ctx?.activeNames.value?.includes(props.name));
+  const isActive = computed(() => ctx?.activeNames.value?.includes(props.name))
 
-function handleClick() {
-  if (props.disabled) return;
-  ctx?.handleItemClick(props.name);
-}
+  function handleClick() {
+    if (props.disabled) return
+    ctx?.handleItemClick(props.name)
+  }
 </script>
 
 <template>
@@ -42,11 +42,23 @@ function handleClick() {
           {{ title }}
         </slot>
       </span>
-      <er-icon icon="angle-right" class="header-angle" />
+      <er-icon
+        icon="angle-right"
+        class="header-angle"
+      />
     </div>
-    <transition name="slide" v-on="transitionEvents">
-      <div class="er-collapse-item__wapper" v-show="isActive">
-        <div class="er-collapse-item__content" :id="`item-content-${name}`">
+    <transition
+      name="slide"
+      v-on="transitionEvents"
+    >
+      <div
+        class="er-collapse-item__wapper"
+        v-show="isActive"
+      >
+        <div
+          class="er-collapse-item__content"
+          :id="`item-content-${name}`"
+        >
           <slot></slot>
         </div>
       </div>
@@ -55,5 +67,5 @@ function handleClick() {
 </template>
 
 <style scoped>
-@import "./style.css";
+  @import './style.css';
 </style>

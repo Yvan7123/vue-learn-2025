@@ -15,7 +15,7 @@ export function debugWarn(error: Error): void
 export function debugWarn(scope: string, msg: string): void
 export function debugWarn(scope: string | Error, msg?: string): void {
   if (process.env.NODE_ENV !== 'production') {
-    const error = isString(scope) ? new Error(`[${scope}] ${msg}`) : scope
+    const error = isString(scope) ? new ErUIError(`[${scope}] ${msg}`) : scope
     console.warn(error)
   }
 }

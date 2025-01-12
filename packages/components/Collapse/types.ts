@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 export type CollapseItemName = string | number
 export interface CollapseProps {
-  moduleValue: CollapseItemName[]
+  modelValue: CollapseItemName[]
   accordion?: boolean
 }
 
@@ -16,6 +16,6 @@ export interface CollapseContext {
 }
 
 export interface CollapseEmits {
-  (e: 'update:moduleValue', val: CollapseItemName[]): void
+  (e: 'update:modelValue', val: CollapseItemName[]): void
   (e: 'change', val: CollapseItemName[]): void
 }
